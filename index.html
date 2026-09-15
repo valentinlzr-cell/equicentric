@@ -44,9 +44,10 @@
 <main id="main">
 
 <section class="hero">
-  <video autoplay muted loop playsinline poster="/assets/img/hero-poster.jpg">
+  <video id="hero-video" autoplay muted playsinline poster="/assets/img/hero-poster.jpg">
     <source src="/assets/video/hero.mp4" type="video/mp4">
   </video>
+  <img id="hero-stop-img" class="hero-stop" src="/assets/img/hero-stop.jpg" alt="Intrarea în grajdul EquiCentric, cu trandafiri pe alee">
   <div class="hero-content">
     <p class="hero-eyebrow">Sat Căciulați · Comuna Moara Vlăsiei · lângă București</p>
     <h1>Un centru de <span class="it">elită</span> pentru echitație, la marginea Bucureștiului</h1>
@@ -57,6 +58,18 @@
     </div>
   </div>
 </section>
+<script>
+  (function(){
+    var v = document.getElementById('hero-video');
+    var img = document.getElementById('hero-stop-img');
+    if(v && img){
+      v.addEventListener('ended', function(){
+        v.style.display = 'none';
+        img.style.display = 'block';
+      });
+    }
+  })();
+</script>
 
 <div class="strip">
   <div class="wrap strip-row">
