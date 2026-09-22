@@ -68,8 +68,9 @@
     <div>
       <p class="kicker">Scrie-ne</p>
       <h2 style="font-size:1.6rem;color:var(--forest);">Cere informații sau rezervă</h2>
-      <form class="contact-form" onsubmit="return handleDemoSubmit(event)">
+      <form class="contact-form" id="contact-form">
         <div class="field"><label for="nume">Nume</label><input type="text" id="nume" name="nume" required></div>
+        <div class="field"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
         <div class="field"><label for="telefon">Telefon</label><input type="tel" id="telefon" name="telefon" required></div>
         <div class="field">
           <label for="serviciu">Serviciu dorit</label>
@@ -87,8 +88,8 @@
           <input type="checkbox" id="consimtamant" required>
           <label for="consimtamant">Sunt de acord ca datele mele să fie folosite pentru a-mi răspunde la acest mesaj, conform <a href="/confidentialitate/">politicii de confidențialitate</a>.</label>
         </div>
-        <button type="submit" class="btn btn-primary">Trimite mesajul</button>
-        <p class="submit-note">Formularul se conectează la trimitere reală la lansarea finală a site-ului.</p>
+        <button type="submit" class="btn btn-primary" id="contact-submit-btn">Trimite mesajul</button>
+        <p class="submit-note" id="contact-form-note"></p>
       </form>
     </div>
   </div>
@@ -123,8 +124,8 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <span>&copy; 2026 EquiCentric. Toate drepturile rezervate.</span>
-      <span>Site realizat de SAM Digital</span>
+      <span class="foot-copy">&copy; 2026 EquiCentric. Toate drepturile rezervate.</span>
+      <a class="foot-credit" href="https://samdigital.ro" target="_blank" rel="noopener">Site realizat de SAM Digital</a>
     </div>
   </div>
 </footer>
@@ -172,11 +173,54 @@
     });
   });
 
-  function handleDemoSubmit(e){
-    e.preventDefault();
-    alert('Mulțumim! Mesajul dumneavoastră a fost pregătit — integrarea finală de trimitere se conectează la lansare.');
-    return false;
-  }
+  // Contact form -> Cloudflare Worker (/api/contact) -> Resend -> equicentriconline@gmail.com
+  (function(){
+    var form = document.getElementById('contact-form');
+    if(!form) return;
+    var btn = document.getElementById('contact-submit-btn');
+    var note = document.getElementById('contact-form-note');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      note.style.color = '';
+      note.textContent = '';
+      btn.disabled = true;
+      btn.textContent = 'Se trimite...';
+
+      var payload = {
+        nume: document.getElementById('nume').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        telefon: document.getElementById('telefon').value.trim(),
+        serviciu: document.getElementById('serviciu').value,
+        mesaj: document.getElementById('mesaj').value.trim()
+      };
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+      .then(function(result){
+        if(result.ok){
+          form.reset();
+          note.style.color = 'var(--forest)';
+          note.textContent = 'Mulțumim! Mesajul a fost trimis — revenim cu un răspuns cât mai curând.';
+        } else {
+          note.style.color = 'var(--brick)';
+          note.textContent = (result.data && result.data.error) || 'A apărut o eroare. Te rugăm să ne suni sau să ne scrii pe WhatsApp.';
+        }
+      })
+      .catch(function(){
+        note.style.color = 'var(--brick)';
+        note.textContent = 'Nu am putut trimite mesajul. Te rugăm să ne suni sau să ne scrii pe WhatsApp.';
+      })
+      .finally(function(){
+        btn.disabled = false;
+        btn.textContent = 'Trimite mesajul';
+      });
+    });
+  })();
 </script>
 </body>
 </html>

@@ -153,8 +153,8 @@ section{padding:80px 0;}
 }
 
 /* Wide editorial image (single strong photo with caption) */
-.wide-editorial{position:relative;border-radius:6px;overflow:hidden;margin-top:40px;}
-.wide-editorial img{width:100%;max-height:520px;object-fit:cover;display:block;}
+.wide-editorial{position:relative;border-radius:6px;overflow:hidden;margin-top:40px;background:var(--forest-dark);}
+.wide-editorial img{width:100%;height:auto;max-height:none;object-fit:contain;display:block;}
 .wide-editorial .ed-caption{padding:26px 28px 22px;}
 
 /* Video page: photo-based link cards replacing "video în curând" placeholders */
@@ -224,7 +224,10 @@ footer.site-footer{background:var(--forest-dark);color:var(--sand);padding:52px 
 .foot-col h4{font-size:0.8rem;color:var(--cream);margin:0 0 12px;font-weight:500;}
 .foot-col a{display:block;font-size:0.88rem;color:var(--sand);opacity:0.85;text-decoration:none;margin-bottom:8px;}
 .foot-col a:hover{opacity:1;text-decoration:underline;}
-.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:22px;font-size:0.8rem;color:var(--sand);opacity:0.65;}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:22px;font-size:0.8rem;}
+.foot-bottom .foot-copy{color:var(--sand);opacity:0.65;}
+.foot-credit{color:var(--sand);text-decoration:none;border-bottom:1px solid rgba(246,241,228,0.4);padding-bottom:1px;transition:color .2s ease, border-color .2s ease;}
+.foot-credit:hover{color:var(--cream);border-color:var(--brick);}
 
 /* Review CTA block - standard element for every SAM Digital site */
 .review-cta{background:var(--sand);border-radius:4px;padding:28px 32px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:48px;}
