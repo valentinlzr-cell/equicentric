@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact — EquiCentric | Rezervă o ședință</title>
-<meta name="description" content="Contactează EquiCentric pentru lecții de echitație, Mommy & Me sau pensiune pentru cai. Telefon, WhatsApp, email și formular de contact.">
+<title>Contact și rezervări | EquiCentric, Moara Vlăsiei</title>
+<meta name="description" content="Rezervă o lecție de echitație sau cere ofertă de pensiune: 0758 055 885 (și WhatsApp), contact@equicentric.ro, Linia Teilor 52, Căciulați, Moara Vlăsiei, Ilfov.">
 <link rel="canonical" href="https://equicentric.ro/contact/">
-<meta property="og:title" content="Contact — EquiCentric | Rezervă o ședință">
-<meta property="og:description" content="Contactează EquiCentric pentru lecții de echitație, Mommy & Me sau pensiune pentru cai. Telefon, WhatsApp, email și formular de contact.">
+<meta property="og:title" content="Contact și rezervări | EquiCentric, Moara Vlăsiei">
+<meta property="og:description" content="Rezervă o lecție de echitație sau cere ofertă de pensiune: 0758 055 885 (și WhatsApp), contact@equicentric.ro, Linia Teilor 52, Căciulați, Moara Vlăsiei, Ilfov.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://equicentric.ro/contact/">
-<meta property="og:image" content="https://equicentric.ro/assets/img/hero-poster.jpg">
+<meta property="og:image" content="https://equicentric.ro/assets/img/intrare.jpg">
 <meta property="og:locale" content="ro_RO">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/assets/styles.css">
 
 
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Acasă", "item": "https://equicentric.ro/"}, {"@type": "ListItem", "position": 2, "name": "Contact", "item": "https://equicentric.ro/contact/"}]}</script>
 </head>
 <body>
 <a class="skip" href="#main">Sari la conținut</a>
@@ -60,7 +61,10 @@
         <dt>Adresă</dt><dd>Linia Teilor 52, Sat Căciulați, Comuna Moara Vlăsiei, Ilfov</dd>
         <dt>Telefon</dt><dd><a href="tel:+40758055885">0758 055 885</a> — și pe <a href="https://wa.me/40758055885" target="_blank" rel="noopener">WhatsApp</a></dd>
         <dt>Email</dt><dd><a href="mailto:contact@equicentric.ro">contact@equicentric.ro</a></dd>
+        <dt>Program</dt><dd>Marți – duminică, 08:00 – 18:00</dd>
+        <dt>Facebook</dt><dd><a href="https://www.facebook.com/equicentricRO/" target="_blank" rel="noopener">facebook.com/equicentricRO</a></dd>
       </dl>
+      <p style="margin-top:18px;"><a class="card-link" href="https://www.google.com/maps/search/?api=1&query=44.6135153,26.167655" target="_blank" rel="noopener">Deschide traseul în Google Maps →</a></p>
       <div class="map-frame">
         <iframe src="https://www.google.com/maps?q=44.6135153,26.167655&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Harta locației EquiCentric"></iframe>
       </div>
@@ -102,7 +106,7 @@
     <div class="foot-grid">
       <div>
         <div class="foot-brand">EquiCentric</div>
-        <p class="foot-addr">Linia Teilor 52, Sat Căciulați, Comuna Moara Vlăsiei, Ilfov<br>0758 055 885<br>contact@equicentric.ro</p>
+        <p class="foot-addr">Linia Teilor 52, Sat Căciulați, Comuna Moara Vlăsiei, Ilfov<br>0758 055 885<br>contact@equicentric.ro<br>Marți – duminică, 08:00 – 18:00<br><a href="https://www.facebook.com/equicentricRO/" target="_blank" rel="noopener">Facebook</a></p>
       </div>
       <div class="foot-links">
         <div class="foot-col">
@@ -114,7 +118,7 @@
           <a href="/despre-noi/">Despre noi</a>
           <a href="/contact/">Contact</a>
           <a href="/faq/">Întrebări frecvente</a>
-          <a href="/cai/">Caii noștri</a>
+          <a href="/servicii/pensiune-cai/">Pensiune pentru cai</a>
         </div>
         <div class="foot-col">
           <h4>Legal</h4>
@@ -179,6 +183,18 @@
     if(!form) return;
     var btn = document.getElementById('contact-submit-btn');
     var note = document.getElementById('contact-form-note');
+
+    // preselect the service when arriving from a service page (/contact/?serviciu=lectii)
+    try{
+      var params = new URLSearchParams(window.location.search);
+      var sv = params.get('serviciu');
+      var sel = document.getElementById('serviciu');
+      if(sv && sel && sel.querySelector('option[value="' + sv + '"]')){ sel.value = sv; }
+      if(params.get('pachet') === '10'){
+        var msg = document.getElementById('mesaj');
+        if(msg && !msg.value){ msg.value = 'Aș dori abonamentul de 10 ședințe (+1 gratuită).'; }
+      }
+    }catch(e){}
 
     form.addEventListener('submit', function(e){
       e.preventDefault();

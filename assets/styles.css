@@ -272,3 +272,19 @@ footer.site-footer{background:var(--forest-dark);color:var(--sand);padding:52px 
   .wa-float{bottom:64px;}
 }
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+/* ---- SEO content update (oct 2026): helper classes, same visual language ---- */
+.prose{max-width:64ch;color:#3a4030;}
+.prose p{margin:0;}
+.prose p + p{margin-top:16px;}
+.sec-title{font-size:1.8rem;color:var(--forest);max-width:24ch;margin-bottom:8px;}
+.check-list{list-style:none;padding:0;margin:20px 0 0;max-width:64ch;}
+.check-list li{position:relative;padding-left:26px;margin-top:12px;color:#3a4030;}
+.check-list li::before{content:"";position:absolute;left:0;top:0.75em;width:12px;height:2px;background:var(--brick);}
+.check-list b{color:var(--forest);font-weight:600;}
+.page-links{display:flex;gap:22px;flex-wrap:wrap;margin-top:32px;}
+.page-links .card-link{margin-top:0;}
+.card a:not(.card-link){color:var(--brick);}
+.card-grid.four{grid-template-columns:repeat(4,1fr);}
+@media (max-width:1000px){ .card-grid.four{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:860px){ .card-grid.four{grid-template-columns:1fr;} }
